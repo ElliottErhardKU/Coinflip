@@ -99,6 +99,11 @@ export default function Home() {
     setOdds(String(side === 'home' ? fair.home : fair.away));
   }, [side, fair]);
 
+  useEffect(() => {
+    if (!selectedGameId) return;
+    compareMarket(true).catch(() => {});
+  }, [selectedGameId]);
+
   async function saveUser() {
     const res = await fetch('/api/users', {
       method: 'POST',
@@ -152,7 +157,7 @@ export default function Home() {
     await loadAll();
   }
 
-  async function compareMarket() {
+  async function compareMarket(silent = false) {
     if (!selectedGameId) return setMsg('Select a game first');
     const res = await fetch(`/api/nba/compare?gameId=${encodeURIComponent(selectedGameId)}`);
     const data = await res.json();
@@ -186,7 +191,7 @@ export default function Home() {
       sbAway: awayLine.price,
     });
 
-    setMsg('Market comparison updated with de-vig fair odds.');
+    if (!silent) setMsg('Market comparison updated with de-vig fair odds.');
   }
 
   async function createOffer() {
@@ -327,13 +332,17 @@ export default function Home() {
                 </div>
 
                 <div className="mt-4 rounded-xl border bg-zinc-950 p-3">
-                  <div className="text-xs text-zinc-400">Fair odds (no-vig)</div>
-                  <div className="mt-1 text-lg font-semibold">{odds} / {odds}</div>
-                  <div className="text-xs text-zinc-400">Sportsbook lines are de-vigged to 50/50 in Coinflip.</div>
+                  <div className="text-xs text-zinc-400">Fair odds (de-vig)</div>
+                  <div className="mt-1 text-lg font-semibold">
+                    Home {fair.home > 0 ? `+${fair.home}` : fair.home} / Away {fair.away > 0 ? `+${fair.away}` : fair.away}
+                  </div>
+                  <div className="mt-1 text-xs text-zinc-400">
+                    Sportsbook: Home {fair.sbHome !== undefined ? (fair.sbHome > 0 ? `+${fair.sbHome}` : fair.sbHome) : '—'} / Away {fair.sbAway !== undefined ? (fair.sbAway > 0 ? `+${fair.sbAway}` : fair.sbAway) : '—'}
+                  </div>
                 </div>
 
                 <div className="mt-4 flex flex-wrap gap-2">
-                  <button className="rounded-lg border px-3 py-2" onClick={compareMarket}>Compare Market</button>
+                  <button className="rounded-lg border px-3 py-2" onClick={() => compareMarket()}>Compare Market</button>
                   <button className="rounded-lg bg-zinc-900 px-4 py-2 font-medium text-white" onClick={createOffer}>Create Offer</button>
                 </div>
 
