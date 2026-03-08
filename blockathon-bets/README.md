@@ -1,6 +1,6 @@
 # Coinflip — The 50/50 Market
 
-Friends-only peer sports market (NBA-first) where users post head-to-head offers inside private groups, with no-house-edge positioning and verifiable settlement artifacts.
+Friends-only peer sports market where users post head-to-head offers inside private groups, with no-house-edge positioning and verifiable settlement artifacts.
 
 ## What this app does
 
