@@ -316,15 +316,15 @@ export default function Home() {
                   <span className="rounded-full bg-blue-100 px-2 py-1 font-medium text-blue-700">{currentGroup ? `${currentGroup.name} (${currentGroup.members.length})` : 'No group selected'}</span>
                 </div>
                 <div className="grid grid-cols-1 gap-3 md:grid-cols-[0.9fr_1.1fr]">
-                  <select className="w-full rounded-lg border p-2.5" value={selectedGroupId} onChange={(e) => setSelectedGroupId(e.target.value)}>
+                  <select className="w-full rounded-lg border border-zinc-700 bg-zinc-950 p-2.5 text-zinc-100" style={{ colorScheme: 'dark' }} value={selectedGroupId} onChange={(e) => setSelectedGroupId(e.target.value)}>
                     <option value="">Select Group</option>
                     {groups.map((g) => <option key={g.id} value={g.id}>{g.name} ({g.members.length})</option>)}
                   </select>
-                  <select className="w-full rounded-lg border p-2.5" value={selectedGameId} onChange={(e) => setSelectedGameId(e.target.value)}>
+                  <select className="w-full rounded-lg border border-zinc-700 bg-zinc-950 p-2.5 text-zinc-100" style={{ colorScheme: 'dark' }} value={selectedGameId} onChange={(e) => setSelectedGameId(e.target.value)}>
                     <option value="">Choose Game</option>
                     {games.map((g) => <option key={g.id} value={g.id}>{g.awayTeam} @ {g.homeTeam}</option>)}
                   </select>
-                  <select className="rounded-lg border p-2.5" value={side} onChange={(e) => setSide(e.target.value as 'home' | 'away')}>
+                  <select className="rounded-lg border border-zinc-700 bg-zinc-950 p-2.5 text-zinc-100" style={{ colorScheme: 'dark' }} value={side} onChange={(e) => setSide(e.target.value as 'home' | 'away')}>
                     <option value="home">Home</option>
                     <option value="away">Away</option>
                   </select>
