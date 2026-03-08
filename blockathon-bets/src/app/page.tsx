@@ -231,7 +231,10 @@ export default function Home() {
     <main className="min-h-screen bg-zinc-950 text-zinc-100">
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 p-6 lg:grid-cols-[260px_1fr]">
         <aside className="rounded-2xl border border-zinc-800 bg-zinc-900 p-4 shadow-xl">
-          <h1 className="text-lg font-bold">Coinflip</h1>
+          <div className="flex items-center gap-2">
+            <img src="/coinflip-logo.jpg" alt="Coinflip logo" className="h-7 w-7 rounded-md border border-zinc-700 object-cover" />
+            <h1 className="text-lg font-bold text-zinc-100">Coinflip</h1>
+          </div>
           <p className="mt-1 text-sm text-zinc-400">The 50/50 Market</p>
 
           <div className="mt-6 space-y-2">
@@ -261,8 +264,8 @@ export default function Home() {
 
         <section className="space-y-6">
           <header className="rounded-2xl border border-zinc-800 bg-zinc-900 p-5 shadow-xl">
-            <h2 className="text-2xl font-bold">Coinflip - The 50/50 Market</h2>
-            <p className="mt-1 text-zinc-300">Friends-only peer betting without sportsbook vig.</p>
+            <h2 className="text-2xl font-bold text-zinc-100">Coinflip — <span className="text-[#FFD76A]">The 50/50 Sports Market</span></h2>
+            <p className="mt-1 text-zinc-300">Friends-only markets • <span className="text-[#FFD76A]">No house edge pricing</span> • Verifiable settlement trail</p>
             {msg && <div className="mt-3 rounded-lg border bg-zinc-950 p-2 text-sm">{msg}</div>}
           </header>
 
@@ -304,7 +307,7 @@ export default function Home() {
                 <h3 className="text-lg font-semibold">Create Head-to-Head Offer</h3>
                 <p className="mb-4 text-sm text-zinc-400">Select a game, choose side, and post a no-vig offer to your private group.</p>
                 <div className="mb-4 flex flex-wrap items-center gap-2 text-xs">
-                  <span className="rounded-full bg-zinc-100 px-2 py-1 text-zinc-700">Current group:</span>
+                  <span className="rounded-full bg-zinc-800 px-2 py-1 text-zinc-200">Current group:</span>
                   <span className="rounded-full bg-blue-100 px-2 py-1 font-medium text-blue-700">{currentGroup ? `${currentGroup.name} (${currentGroup.members.length})` : 'No group selected'}</span>
                 </div>
                 <div className="grid grid-cols-1 gap-3 md:grid-cols-[0.9fr_1.1fr]">
@@ -378,7 +381,7 @@ export default function Home() {
                     </thead>
                     <tbody>
                       {visibleOffers.map((o) => (
-                        <tr key={o.id} className="rounded-lg bg-zinc-950 hover:bg-zinc-100">
+                        <tr key={o.id} className="rounded-lg bg-zinc-950 hover:bg-[#1D212B]">
                           <td className="px-2 py-2 font-mono" title={o.id}>{o.id.slice(0, 8)}...</td>
                           <td className="px-2 py-2">{o.createdBy}</td>
                           <td className="px-2 py-2">{o.stakeAmount} LUSD</td>
