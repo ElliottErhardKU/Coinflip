@@ -20,16 +20,27 @@ type NavTab = 'setup' | 'market';
 function statusChip(status: Offer['status']) {
   switch (status) {
     case 'open':
-      return 'bg-zinc-100 text-zinc-700';
+      return 'bg-zinc-800 text-zinc-200';
     case 'matched':
-      return 'bg-blue-100 text-blue-700';
+      return 'bg-blue-900/60 text-blue-200';
     case 'settled':
-      return 'bg-emerald-100 text-emerald-700';
+      return 'bg-emerald-900/60 text-emerald-200';
     case 'cancelled':
-      return 'bg-red-100 text-red-700';
+      return 'bg-red-900/60 text-red-200';
     default:
-      return 'bg-zinc-100 text-zinc-700';
+      return 'bg-zinc-800 text-zinc-200';
   }
+}
+
+function americanToProb(odds: number) {
+  if (odds > 0) return 100 / (odds + 100);
+  return Math.abs(odds) / (Math.abs(odds) + 100);
+}
+
+function probToAmerican(prob: number) {
+  if (prob <= 0 || prob >= 1) return -100;
+  if (prob < 0.5) return Math.round((100 * (1 - prob)) / prob);
+  return -Math.round((100 * prob) / (1 - prob));
 }
 
 export default function Home() {
@@ -54,6 +65,10 @@ export default function Home() {
   const [odds, setOdds] = useState('-100');
 
   const [bestH2h, setBestH2h] = useState<BestLine[]>([]);
+  const [fair, setFair] = useState<{ home: number; away: number; sbHome?: number; sbAway?: number }>({
+    home: -100,
+    away: -100,
+  });
 
   const selectedGame = useMemo(() => games.find((g) => g.id === selectedGameId), [games, selectedGameId]);
   const currentGroup = useMemo(() => groups.find((g) => g.id === selectedGroupId), [groups, selectedGroupId]);
@@ -79,6 +94,10 @@ export default function Home() {
   useEffect(() => {
     loadAll().catch((e) => setMsg(String(e)));
   }, []);
+
+  useEffect(() => {
+    setOdds(String(side === 'home' ? fair.home : fair.away));
+  }, [side, fair]);
 
   async function saveUser() {
     const res = await fetch('/api/users', {
@@ -138,9 +157,36 @@ export default function Home() {
     const res = await fetch(`/api/nba/compare?gameId=${encodeURIComponent(selectedGameId)}`);
     const data = await res.json();
     if (!res.ok) return setMsg(data.error ?? 'Failed to compare market');
-    const lines = data?.comparison?.bestByMarket?.h2h ?? [];
+    const lines: BestLine[] = data?.comparison?.bestByMarket?.h2h ?? [];
     setBestH2h(lines);
-    if (lines.length) setOdds('-100'); // no-vig default display
+
+    if (!lines.length || !selectedGame) {
+      setFair({ home: -100, away: -100 });
+      return;
+    }
+
+    const homeLine = lines.find((l) => l.outcome === selectedGame.homeTeam);
+    const awayLine = lines.find((l) => l.outcome === selectedGame.awayTeam);
+
+    if (!homeLine || !awayLine) {
+      setFair({ home: -100, away: -100 });
+      return;
+    }
+
+    const pHomeRaw = americanToProb(homeLine.price);
+    const pAwayRaw = americanToProb(awayLine.price);
+    const norm = pHomeRaw + pAwayRaw;
+    const pHome = pHomeRaw / norm;
+    const pAway = pAwayRaw / norm;
+
+    setFair({
+      home: probToAmerican(pHome),
+      away: probToAmerican(pAway),
+      sbHome: homeLine.price,
+      sbAway: awayLine.price,
+    });
+
+    setMsg('Market comparison updated with de-vig fair odds.');
   }
 
   async function createOffer() {
@@ -182,29 +228,29 @@ export default function Home() {
   }
 
   return (
-    <main className="min-h-screen bg-zinc-50 text-zinc-900">
+    <main className="min-h-screen bg-zinc-950 text-zinc-100">
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 p-6 lg:grid-cols-[260px_1fr]">
-        <aside className="rounded-2xl border bg-white p-4 shadow-sm">
+        <aside className="rounded-2xl border border-zinc-800 bg-zinc-900 p-4 shadow-xl">
           <h1 className="text-lg font-bold">Coinflip</h1>
-          <p className="mt-1 text-sm text-zinc-500">The 50/50 Market</p>
+          <p className="mt-1 text-sm text-zinc-400">The 50/50 Market</p>
 
           <div className="mt-6 space-y-2">
             <button
-              className={`w-full rounded-lg px-3 py-2 text-left ${tab === 'setup' ? 'bg-zinc-900 text-white' : 'bg-zinc-100 text-zinc-700'}`}
+              className={`w-full rounded-lg px-3 py-2 text-left ${tab === 'setup' ? 'bg-blue-600 text-white' : 'bg-zinc-800 text-zinc-300'}`}
               onClick={() => setTab('setup')}
             >
               User / Friends / Groups
             </button>
             <button
-              className={`w-full rounded-lg px-3 py-2 text-left ${tab === 'market' ? 'bg-zinc-900 text-white' : 'bg-zinc-100 text-zinc-700'}`}
+              className={`w-full rounded-lg px-3 py-2 text-left ${tab === 'market' ? 'bg-blue-600 text-white' : 'bg-zinc-800 text-zinc-300'}`}
               onClick={() => setTab('market')}
             >
               Markets / Offers
             </button>
           </div>
 
-          <div className="mt-6 rounded-lg border bg-zinc-50 p-3 text-xs text-zinc-600">
-            <div className="font-medium text-zinc-800">Coinflip Promise</div>
+          <div className="mt-6 rounded-lg border border-zinc-800 bg-zinc-950 p-3 text-xs text-zinc-300">
+            <div className="font-medium text-zinc-100">Coinflip Promise</div>
             <ul className="mt-2 list-disc pl-4">
               <li>Friends-only market access</li>
               <li>No house edge pricing</li>
@@ -214,17 +260,17 @@ export default function Home() {
         </aside>
 
         <section className="space-y-6">
-          <header className="rounded-2xl border bg-white p-5 shadow-sm">
+          <header className="rounded-2xl border border-zinc-800 bg-zinc-900 p-5 shadow-xl">
             <h2 className="text-2xl font-bold">Coinflip - The 50/50 Market</h2>
-            <p className="mt-1 text-zinc-600">Friends-only peer betting without sportsbook vig.</p>
-            {msg && <div className="mt-3 rounded-lg border bg-zinc-50 p-2 text-sm">{msg}</div>}
+            <p className="mt-1 text-zinc-300">Friends-only peer betting without sportsbook vig.</p>
+            {msg && <div className="mt-3 rounded-lg border bg-zinc-950 p-2 text-sm">{msg}</div>}
           </header>
 
           {tab === 'setup' ? (
             <div className="grid grid-cols-1 gap-6 xl:grid-cols-3">
-              <article className="rounded-2xl border bg-white p-5 shadow-sm">
+              <article className="rounded-2xl border border-zinc-800 bg-zinc-900 p-5 shadow-xl">
                 <h3 className="text-lg font-semibold">User Profile</h3>
-                <p className="mb-4 text-sm text-zinc-500">Set your identity and XRPL address.</p>
+                <p className="mb-4 text-sm text-zinc-400">Set your identity and XRPL address.</p>
                 <div className="space-y-3">
                   <input className="w-full rounded-lg border p-2.5" value={userId} onChange={(e) => setUserId(e.target.value)} placeholder="User ID" />
                   <input className="w-full rounded-lg border p-2.5" value={xrplAddress} onChange={(e) => setXrplAddress(e.target.value)} placeholder="XRPL address (r...)" />
@@ -232,18 +278,18 @@ export default function Home() {
                 </div>
               </article>
 
-              <article className="rounded-2xl border bg-white p-5 shadow-sm">
+              <article className="rounded-2xl border border-zinc-800 bg-zinc-900 p-5 shadow-xl">
                 <h3 className="text-lg font-semibold">Friends</h3>
-                <p className="mb-4 text-sm text-zinc-500">Only friends can accept each other’s offers.</p>
+                <p className="mb-4 text-sm text-zinc-400">Only friends can accept each other’s offers.</p>
                 <div className="space-y-3">
                   <input className="w-full rounded-lg border p-2.5" value={friendId} onChange={(e) => setFriendId(e.target.value)} placeholder="Friend user ID" />
                   <button className="w-full rounded-lg bg-zinc-900 px-3 py-2.5 font-medium text-white" onClick={addFriend}>Add Friend</button>
                 </div>
               </article>
 
-              <article className="rounded-2xl border bg-white p-5 shadow-sm">
+              <article className="rounded-2xl border border-zinc-800 bg-zinc-900 p-5 shadow-xl">
                 <h3 className="text-lg font-semibold">Groups</h3>
-                <p className="mb-4 text-sm text-zinc-500">Create or join private markets with trusted people.</p>
+                <p className="mb-4 text-sm text-zinc-400">Create or join private markets with trusted people.</p>
                 <div className="space-y-3">
                   <input className="w-full rounded-lg border p-2.5" value={groupName} onChange={(e) => setGroupName(e.target.value)} placeholder="Group name" />
                   <button className="w-full rounded-lg border px-3 py-2.5" onClick={createGroup}>Create Group</button>
@@ -254,9 +300,9 @@ export default function Home() {
             </div>
           ) : (
             <div className="grid grid-cols-1 gap-6 xl:grid-cols-[1.2fr_1fr]">
-              <article className="rounded-2xl border bg-white p-5 shadow-sm">
+              <article className="rounded-2xl border border-zinc-800 bg-zinc-900 p-5 shadow-xl">
                 <h3 className="text-lg font-semibold">Create Head-to-Head Offer</h3>
-                <p className="mb-4 text-sm text-zinc-500">Select a game, choose side, and post a no-vig offer to your private group.</p>
+                <p className="mb-4 text-sm text-zinc-400">Select a game, choose side, and post a no-vig offer to your private group.</p>
                 <div className="mb-4 flex flex-wrap items-center gap-2 text-xs">
                   <span className="rounded-full bg-zinc-100 px-2 py-1 text-zinc-700">Current group:</span>
                   <span className="rounded-full bg-blue-100 px-2 py-1 font-medium text-blue-700">{currentGroup ? `${currentGroup.name} (${currentGroup.members.length})` : 'No group selected'}</span>
@@ -277,10 +323,10 @@ export default function Home() {
                   <input className="rounded-lg border p-2.5" value={stake} onChange={(e) => setStake(e.target.value)} placeholder="Stake (LUSD)" />
                 </div>
 
-                <div className="mt-4 rounded-xl border bg-zinc-50 p-3">
-                  <div className="text-xs text-zinc-500">Fair odds (no-vig)</div>
+                <div className="mt-4 rounded-xl border bg-zinc-950 p-3">
+                  <div className="text-xs text-zinc-400">Fair odds (no-vig)</div>
                   <div className="mt-1 text-lg font-semibold">{odds} / {odds}</div>
-                  <div className="text-xs text-zinc-500">Sportsbook lines are de-vigged to 50/50 in Coinflip.</div>
+                  <div className="text-xs text-zinc-400">Sportsbook lines are de-vigged to 50/50 in Coinflip.</div>
                 </div>
 
                 <div className="mt-4 flex flex-wrap gap-2">
@@ -299,19 +345,19 @@ export default function Home() {
                         </div>
                       ))}
                     </div>
-                    {selectedGame && <div className="mt-2 text-xs text-zinc-500">{selectedGame.awayTeam} @ {selectedGame.homeTeam}</div>}
+                    {selectedGame && <div className="mt-2 text-xs text-zinc-400">{selectedGame.awayTeam} @ {selectedGame.homeTeam}</div>}
                   </div>
                 )}
               </article>
 
-              <article className="rounded-2xl border bg-white p-5 shadow-sm">
+              <article className="rounded-2xl border border-zinc-800 bg-zinc-900 p-5 shadow-xl">
                 <div className="mb-3 flex items-center justify-between gap-2">
                   <div>
                     <h3 className="text-lg font-semibold">Active Offers</h3>
-                    <p className="text-xs text-zinc-500">Showing {groupOnly ? 'selected group only' : 'all groups'}</p>
+                    <p className="text-xs text-zinc-400">Showing {groupOnly ? 'selected group only' : 'all groups'}</p>
                   </div>
                   <div className="flex items-center gap-2">
-                    <label className="flex items-center gap-1 text-xs text-zinc-600">
+                    <label className="flex items-center gap-1 text-xs text-zinc-300">
                       <input type="checkbox" checked={groupOnly} onChange={(e) => setGroupOnly(e.target.checked)} />
                       Group only
                     </label>
@@ -321,7 +367,7 @@ export default function Home() {
 
                 <div className="overflow-auto">
                   <table className="w-full border-separate border-spacing-y-2 text-left text-sm">
-                    <thead className="text-zinc-500">
+                    <thead className="text-zinc-400">
                       <tr>
                         <th className="px-2">Offer ID</th>
                         <th className="px-2">Creator</th>
@@ -332,7 +378,7 @@ export default function Home() {
                     </thead>
                     <tbody>
                       {visibleOffers.map((o) => (
-                        <tr key={o.id} className="rounded-lg bg-zinc-50 hover:bg-zinc-100">
+                        <tr key={o.id} className="rounded-lg bg-zinc-950 hover:bg-zinc-100">
                           <td className="px-2 py-2 font-mono" title={o.id}>{o.id.slice(0, 8)}...</td>
                           <td className="px-2 py-2">{o.createdBy}</td>
                           <td className="px-2 py-2">{o.stakeAmount} LUSD</td>
