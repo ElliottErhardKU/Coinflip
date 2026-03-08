@@ -1,68 +1,49 @@
-# Blockathon Bets
+# Coinflip — The 50/50 Market
 
-Gemini-first setup for a sports peer-betting hackathon app, with OpenAI and no-key fallback modes.
+Friends-only peer sports market (NBA-first) where users post head-to-head offers inside private groups, with no-house-edge positioning and verifiable settlement artifacts.
 
-## Setup
+## What this app does
 
-1. Copy env file:
+- Private **user/friend/group** setup
+- NBA game + market ingestion from The Odds API
+- Head-to-head offer creation and acceptance
+- Offer lifecycle: `open -> matched -> settled/cancelled`
+- Settlement record trail with XRPL tx hash + Pinata receipt CID
+
+## Quick start
 
 ```bash
 cp .env.example .env.local
-```
-
-2. Set at minimum:
-
-- `LLM_PROVIDER=openai`
-- `OPENAI_API_KEY=...`
-
-3. Run:
-
-```bash
+pnpm install
 pnpm dev
 ```
 
-## LLM Mode
+Open: `http://localhost:3000`
 
-- Default: `LLM_PROVIDER=gemini`
-- OpenAI mode: `LLM_PROVIDER=openai`
-- No-key mode: `LLM_PROVIDER=none` (deterministic fallback analysis)
+## Environment
 
-No application code changes needed for provider switching.
+Minimum practical setup:
 
-## API Test
+- `ODDS_API_KEY` (live NBA odds)
+- `XRPL_TREASURY_SEED` (real testnet signing path)
+- `PINATA_JWT` (real receipt CIDs)
 
-`POST /api/llm/research`
+LLM is optional and cost-safe by default:
 
-Body:
-
-```json
-{
-  "task": "Compare current NBA market pricing for this bet",
-  "input": "Lakers vs Suns, spread Lakers -2.5 at -110"
-}
-```
-
-Returns provider/model metadata + structured bet research JSON.
-
-## Current backend scope
-
-- NBA games + odds endpoints
-- Group creation/join
-- Bet offer create/list/accept
-- Settlement endpoint with XRPL payment hooks (mock fallback when seed missing)
-- Pinata receipt uploads (mock CID fallback when JWT missing)
+- `LLM_PROVIDER=none`
 
 ## Scripts
 
-- `pnpm dev` - run app
-- `pnpm smoke` - run end-to-end smoke test
+- `pnpm dev` — run app
+- `pnpm smoke` — run end-to-end smoke test
 
-## Useful endpoints
+## API endpoints
 
 - `GET /api/nba/games`
 - `GET /api/nba/odds?gameId=...`
 - `GET /api/nba/compare?gameId=...`
 - `GET|POST /api/users`
+- `GET|POST /api/friends`
 - `GET|POST /api/groups`
 - `POST /api/groups/join`
 - `GET|POST /api/bets/offers`
@@ -70,3 +51,8 @@ Returns provider/model metadata + structured bet research JSON.
 - `POST /api/bets/settle`
 - `POST /api/bets/settle-from-result`
 - `GET /api/bets/settlements`
+
+## Notes
+
+- This is a hackathon prototype; legal/compliance requirements apply for any real-money production launch.
+- See `RUNBOOK.md` and `HANDOFF.md` for demo + operational flow.
