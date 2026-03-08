@@ -1,0 +1,329 @@
+{
+  "users": [
+    {
+      "id": "elliott",
+      "displayName": "elliott",
+      "xrplAddress": "rEAHmrpg5Cco5UiRZKcqLx7xw1fL8Bj3Uw",
+      "createdAt": "2026-03-08T00:49:35.747Z"
+    },
+    {
+      "id": "friend1",
+      "displayName": "friend1",
+      "xrplAddress": "rEAHmrpg5Cco5UiRZKcqLx7xw1fL8Bj3Uw",
+      "createdAt": "2026-03-08T04:05:39.330Z"
+    },
+    {
+      "id": "kcheck",
+      "displayName": "Key Check",
+      "xrplAddress": "rPT1Sjq2YGrBMTttX4GZHjKu9dyfzbpAYe",
+      "createdAt": "2026-03-08T04:39:33.773Z"
+    },
+    {
+      "id": "King Elliott",
+      "displayName": "King Elliott",
+      "xrplAddress": "rNyjfGMCfYicox3idbWbQ2kkqge5xHpNBE",
+      "createdAt": "2026-03-08T08:22:55.689Z"
+    },
+    {
+      "id": "Elliott Junior",
+      "displayName": "Elliott Junior",
+      "xrplAddress": "rarnFX6AY6AwbZfEvHRuJxc1NUncuRW6hP",
+      "createdAt": "2026-03-08T08:24:50.847Z"
+    },
+    {
+      "id": "Elliott Erhard",
+      "displayName": "Elliott Erhard",
+      "xrplAddress": "rNyjfGMCfYicox3idbWbQ2kkqge5xHpNBE",
+      "createdAt": "2026-03-08T08:38:43.949Z"
+    },
+    {
+      "id": "Elliott",
+      "displayName": "Elliott",
+      "xrplAddress": "rNyjfGMCfYicox3idbWbQ2kkqge5xHpNBE",
+      "createdAt": "2026-03-08T10:00:29.094Z"
+    },
+    {
+      "id": "Carter",
+      "displayName": "Carter",
+      "createdAt": "2026-03-08T10:00:36.883Z"
+    }
+  ],
+  "friendships": [
+    {
+      "a": "Elliott Erhard",
+      "b": "friend1",
+      "createdAt": "2026-03-08T08:38:44.319Z"
+    },
+    {
+      "a": "Carter",
+      "b": "Elliott",
+      "createdAt": "2026-03-08T10:00:36.932Z"
+    }
+  ],
+  "groups": [
+    {
+      "id": "0c555926-c659-436c-9b5b-6dc21555c48c",
+      "name": "Friends",
+      "createdBy": "elliott",
+      "members": [
+        "elliott"
+      ],
+      "createdAt": "2026-03-08T00:49:35.995Z"
+    },
+    {
+      "id": "7caae1c2-4e26-4170-b6cd-69cf43a94fd2",
+      "name": "Friends",
+      "createdBy": "elliott",
+      "members": [
+        "elliott"
+      ],
+      "createdAt": "2026-03-08T00:49:49.265Z"
+    },
+    {
+      "id": "cde9d90f-ecaa-4526-a74d-20975130e1c7",
+      "name": "Friends",
+      "createdBy": "elliott",
+      "members": [
+        "elliott"
+      ],
+      "createdAt": "2026-03-08T00:50:33.550Z"
+    },
+    {
+      "id": "0fbea7d8-e550-4fdb-9a54-c2ae2f292b3a",
+      "name": "E2E Test Group",
+      "createdBy": "elliott",
+      "members": [
+        "elliott",
+        "friend1"
+      ],
+      "createdAt": "2026-03-08T04:05:39.920Z"
+    },
+    {
+      "id": "5c75f64a-7768-4e31-8897-45fe2352f150",
+      "name": "KeyCheck",
+      "createdBy": "kcheck",
+      "members": [
+        "kcheck"
+      ],
+      "createdAt": "2026-03-08T04:39:33.818Z"
+    },
+    {
+      "id": "9bc6997e-824f-4b36-b1a5-d6d6e721eecd",
+      "name": "Smoke Group",
+      "createdBy": "elliott",
+      "members": [
+        "elliott",
+        "friend1"
+      ],
+      "createdAt": "2026-03-08T07:02:53.346Z"
+    },
+    {
+      "id": "704c0f1b-f1b6-4a25-b773-b842c4765e35",
+      "name": "Smoke Group",
+      "createdBy": "elliott",
+      "members": [
+        "elliott",
+        "friend1"
+      ],
+      "createdAt": "2026-03-08T07:28:37.717Z"
+    },
+    {
+      "id": "a50adb7d-67d5-4463-b07c-06a4525b8ddc",
+      "name": "Smoke Group",
+      "createdBy": "elliott",
+      "members": [
+        "elliott",
+        "friend1"
+      ],
+      "createdAt": "2026-03-08T07:52:35.933Z"
+    },
+    {
+      "id": "50ff920f-8544-4447-95a4-bc1365c259cb",
+      "name": "Smoke Group",
+      "createdBy": "elliott",
+      "members": [
+        "elliott",
+        "friend1"
+      ],
+      "createdAt": "2026-03-08T08:01:21.664Z"
+    },
+    {
+      "id": "e9ccd400-c6cb-4988-9a70-56079a7a4c27",
+      "name": "Katrina",
+      "createdBy": "King Elliott",
+      "members": [
+        "King Elliott",
+        "friend1"
+      ],
+      "createdAt": "2026-03-08T08:22:55.736Z"
+    },
+    {
+      "id": "27dca46e-4a70-4ff9-893f-7ec20dcf810e",
+      "name": "Friends",
+      "createdBy": "Elliott Erhard",
+      "members": [
+        "Elliott Erhard"
+      ],
+      "createdAt": "2026-03-08T08:38:53.973Z"
+    },
+    {
+      "id": "06ea7b26-ffe1-40fe-8396-7488886f48b2",
+      "name": "Elliott and Friends",
+      "createdBy": "Elliott",
+      "members": [
+        "Elliott"
+      ],
+      "createdAt": "2026-03-08T10:00:29.111Z"
+    }
+  ],
+  "offers": [
+    {
+      "gameId": "92a72f11c9b0e34500cf18430b89aabd",
+      "createdBy": "elliott",
+      "offeredToGroupId": "0fbea7d8-e550-4fdb-9a54-c2ae2f292b3a",
+      "side": "home",
+      "stakeAmount": "1",
+      "oddsAmerican": -110,
+      "expiresAt": "2026-03-08T00:05:40.1312418-06:00",
+      "stakeToken": "LUSD",
+      "id": "619c7dc7-9e98-4403-89e3-0b0158751536",
+      "status": "settled",
+      "createdAt": "2026-03-08T04:05:42.474Z",
+      "escrowTxHash": "mock_escrow_self_fea4138b0356c531be3b34cf",
+      "receiptCid": "QmVd8hs2Zpv3Gos5iXrrhJXhMFN7ysMwxqZRPU4WMrrGMM",
+      "acceptedBy": "friend1"
+    },
+    {
+      "gameId": "f72fef0133914afa77933a8229c6f3b6",
+      "createdBy": "kcheck",
+      "offeredToGroupId": "5c75f64a-7768-4e31-8897-45fe2352f150",
+      "side": "home",
+      "stakeAmount": "1",
+      "oddsAmerican": -110,
+      "expiresAt": "2026-03-07T23:39:33.8394194-06:00",
+      "stakeToken": "LUSD",
+      "id": "c33f4d85-0353-48bf-a76f-3c73a2fc868c",
+      "status": "cancelled",
+      "createdAt": "2026-03-08T04:39:42.684Z",
+      "escrowTxHash": "84847A134C3162ACDA84B8437BBC7E3253E4982FFF2D01367D0FCAF09371F4A8",
+      "receiptCid": "QmPhRwBGgKxrrNckN6Hr7WaqzCf7MsZBYnUZ2mWUVDKQh5"
+    },
+    {
+      "gameId": "f72fef0133914afa77933a8229c6f3b6",
+      "createdBy": "elliott",
+      "offeredToGroupId": "9bc6997e-824f-4b36-b1a5-d6d6e721eecd",
+      "side": "home",
+      "stakeAmount": "1",
+      "oddsAmerican": -110,
+      "expiresAt": "2026-03-08T03:02:53.3972953-05:00",
+      "stakeToken": "LUSD",
+      "id": "f96e0c38-c580-434a-81e3-4f543ce8b956",
+      "status": "settled",
+      "createdAt": "2026-03-08T07:02:55.996Z",
+      "escrowTxHash": "mock_escrow_self_d75a7d8fc24f6b4542320f3a",
+      "receiptCid": "QmSREPLwPPr33wpuVHkfSvoeft6KApZmsZSj6BQvFLBvz1",
+      "acceptedBy": "friend1"
+    },
+    {
+      "gameId": "f72fef0133914afa77933a8229c6f3b6",
+      "createdBy": "elliott",
+      "offeredToGroupId": "704c0f1b-f1b6-4a25-b773-b842c4765e35",
+      "side": "home",
+      "stakeAmount": "1",
+      "oddsAmerican": -110,
+      "expiresAt": "2026-03-08T03:28:37.7628116-05:00",
+      "stakeToken": "LUSD",
+      "id": "84e953f6-d2f1-4f60-9110-6b467ccff327",
+      "status": "settled",
+      "createdAt": "2026-03-08T07:28:39.980Z",
+      "escrowTxHash": "mock_escrow_self_9a086227e48b16c2c4cdd56f",
+      "receiptCid": "QmQv1sNxpPWZvHtEJDVTHhQ4Qj5n3djb4g41TtbZ6KJZYD",
+      "acceptedBy": "friend1"
+    },
+    {
+      "gameId": "f72fef0133914afa77933a8229c6f3b6",
+      "createdBy": "elliott",
+      "offeredToGroupId": "a50adb7d-67d5-4463-b07c-06a4525b8ddc",
+      "side": "home",
+      "stakeAmount": "1",
+      "oddsAmerican": -110,
+      "expiresAt": "2026-03-08T03:52:35.9688031-05:00",
+      "stakeToken": "LUSD",
+      "id": "8cedbbac-bfe0-4a05-9c50-57e20b6d81f7",
+      "status": "settled",
+      "createdAt": "2026-03-08T07:52:38.040Z",
+      "escrowTxHash": "mock_escrow_self_2cbe92a9bd98f2844bfa0772",
+      "receiptCid": "QmSJJ1449AhYkJAzJE1t7vqT8KwHBdT6ybgXDfWRogAn4w",
+      "acceptedBy": "friend1"
+    },
+    {
+      "gameId": "f72fef0133914afa77933a8229c6f3b6",
+      "createdBy": "elliott",
+      "offeredToGroupId": "50ff920f-8544-4447-95a4-bc1365c259cb",
+      "side": "home",
+      "stakeAmount": "1",
+      "oddsAmerican": -110,
+      "expiresAt": "2026-03-08T05:01:21.7083746-05:00",
+      "stakeToken": "LUSD",
+      "id": "ad91990d-a04f-4abc-a0e0-29201b226b42",
+      "status": "settled",
+      "createdAt": "2026-03-08T08:01:23.882Z",
+      "escrowTxHash": "mock_escrow_self_5936d8206e702dfc24f09c0f",
+      "receiptCid": "QmYpphFNTEv5fTWDUj6Sfrfd92pUqqQZy35t4WWpYQ1VFG",
+      "acceptedBy": "friend1"
+    },
+    {
+      "gameId": "006622ec4db6bee347f96611117716b1",
+      "createdBy": "King Elliott",
+      "offeredToGroupId": "e9ccd400-c6cb-4988-9a70-56079a7a4c27",
+      "side": "home",
+      "stakeAmount": "1",
+      "oddsAmerican": -110,
+      "expiresAt": "2026-03-08T10:23:11.307Z",
+      "stakeToken": "LUSD",
+      "id": "50b8488b-a1ce-46b1-b102-beae02fe2987",
+      "status": "matched",
+      "createdAt": "2026-03-08T08:23:17.140Z",
+      "escrowTxHash": "34F8E8695CFAEF16807ED9849CDA741FA78FE8344967CA3FC1CD67941B11EE1B",
+      "receiptCid": "QmVo32MjqTezxdB4mr53xdrYkrexQXby3DMvBdsaTWnRfN",
+      "acceptedBy": "friend1"
+    }
+  ],
+  "settlements": [
+    {
+      "offerId": "619c7dc7-9e98-4403-89e3-0b0158751536",
+      "winnerUserId": "elliott",
+      "settledAt": "2026-03-08T04:05:46.097Z",
+      "payoutTxHash": "mock_escrow_self_7144708608d8222093b0a68d",
+      "settlementReceiptCid": "QmNse9vjBPBNaXzE1AnxjbggMwnX8wDDQ9HZMWJemhtxF3"
+    },
+    {
+      "offerId": "f96e0c38-c580-434a-81e3-4f543ce8b956",
+      "winnerUserId": "elliott",
+      "settledAt": "2026-03-08T07:03:00.355Z",
+      "payoutTxHash": "mock_escrow_self_ee615c8ef95993cc94ae89b6",
+      "settlementReceiptCid": "QmQrL5BtHjeKVPYXL5jyLJUYgexv6c2pY2hGPibfW4yveY"
+    },
+    {
+      "offerId": "84e953f6-d2f1-4f60-9110-6b467ccff327",
+      "winnerUserId": "elliott",
+      "settledAt": "2026-03-08T07:28:42.992Z",
+      "payoutTxHash": "mock_escrow_self_e084a4668d42744c822db4af",
+      "settlementReceiptCid": "QmUbLAkZgu6k4HGnVr6xiUVfHZwuG4M8SuQLEbNB4WZZ4j"
+    },
+    {
+      "offerId": "8cedbbac-bfe0-4a05-9c50-57e20b6d81f7",
+      "winnerUserId": "elliott",
+      "settledAt": "2026-03-08T07:52:41.103Z",
+      "payoutTxHash": "mock_escrow_self_6d02ff83931cc1f6acd1703c",
+      "settlementReceiptCid": "QmSPCrVzHFPvz3hQvd3NDuFv45tkm31r7j5p9QN5TSAZHe"
+    },
+    {
+      "offerId": "ad91990d-a04f-4abc-a0e0-29201b226b42",
+      "winnerUserId": "elliott",
+      "settledAt": "2026-03-08T08:01:26.958Z",
+      "payoutTxHash": "mock_escrow_self_32be1d1fbf3fb00a73fd078e",
+      "settlementReceiptCid": "QmZoUksecaAPVutXoJiQdpzmBjBvLU2wFY9qq8NYEHQtm7"
+    }
+  ]
+}
